@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <meta name="description" content="StartAI - AI Writer & Tech Startup Template"> -->
+        <meta name="keywords" content="Html, Css, jQuery, JavaScript, StartAI, ai, technology, template, design">
+        
+        <!-- Title -->
+        <title>QuanBoAI - AI Writer & Tech Startup Template</title>
+        <!-- Favicon -->
+        <!-- <link rel="icon" href="static/picture/icon.png"> -->
+        <!-- Google Fonts -->
+		<link rel="stylesheet" href="static/css/css2-Michromawght400500600700800_swap.css">
+		<link rel="stylesheet" href="static/css/css2-Montserratwght400500600700800_swap.css">
+ 
+        <!-- Font Awesome Css -->
+        <link rel="stylesheet" href="static/css/font-awesome.min.css">
+        <!-- Bootstrap 4 Css -->
+        <link rel="stylesheet" href="static/css/bootstrap.min.css">
+        <!-- Main Style Css -->
+        <link rel="stylesheet" href="static/css/main.css">
+        
+        <!--[if lt IE 9]>
+        <script src="js/html5shiv.min.js"></script>
+        <script src="js/respond.min.js"></script>
+        <![endif]-->
+       
+    </head>
+    <body>
+        
+        <!-- ========== Start Navbar ========== -->   
+
+        <header class="header">
+		<div class="container">
+			<div class="header-inner">
+				<div class="logo">
+					<a href="index.html">
+						<!-- <img src="static/picture/icon.png" alt="logo">  -->
+						QuanBoAI
+					</a>
+				</div>
+				<nav class="main-nav">
+					<ul class="menu">
+						<li class="menu-item">
+							<a href="index.html">主页</a>
+						</li>
+						<li class="menu-item">
+							<a href="anli.html">案例分享</a>
+						</li>
+						<li class="menu-item current">
+							<a href="">QBoAI</a>
+						</li>
+						<li class="menu-item menu-item-has-children">
+							<a href="#0">解决方案</a>
+							<ul class="sub-menu">
+								<li class="menu-item"><a href="ProJect/object-detection.html">目标检测</a></li>
+								<li class="menu-item"><a href="ProJect/multi-modal.html">多模融合</a></li>
+								<li class="menu-item"><a href="ProJect/semantic-segmentation.html">语义分割</a></li>
+								<li class="menu-item"><a href="ProJect/image-modeling.html">图像建模</a></li>
+								<li class="menu-item"><a href="ProJect/ocr.html">具身智能-尽情期待</a></li>
+							</ul>
+						</li>
+						<!-- <li class="menu-item">
+							<a href="contact.html">Contact</a>
+						</li> -->
+					</ul>
+				</nav>
+				<div class="mobile-button"><span></span></div>
+			</div>
+		</div>
+	</header>
+        
+        <!-- ========== End Navbar ========== -->
+
+        <!-- ========== Start Chat Section ========== -->
+        <div class="chat-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="chat-container">
+                            <h3 class="chat-title">与QBoAI对话</h3>
+                            <div class="chat-history" id="chatHistory">
+                                <!-- 聊天记录将显示在这里 -->
+                                <div class="message ai-message">
+                                    <div class="message-avatar">Q</div>
+                                    <div class="message-content">
+                                        <p>你好！我是QBoAI，有什么我可以帮助你的吗？</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat-input-area">
+                                <div class="file-preview-area" id="filePreviewArea"></div>
+                                <input type="text" id="userInput" placeholder="在这里输入你的问题..." class="chat-input">
+                                <button id="sendButton" class="send-button">发送</button>
+                                <label for="fileInput" class="file-upload-btn" title="上传文件">
+                                    <i class="fa fa-paperclip"></i>
+                                </label>
+                                <input type="file" id="fileInput" accept="image/*,.txt,.pdf,.doc,.docx" style="display: none;">
+                                <button id="clearMemoryBtn" class="clear-memory-btn" title="清除记忆">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ========== End Chat Section ========== -->
+
+        <style>
+            .chat-section {
+                padding: 100px 0;
+                min-height: 80vh;
+                display: flex;
+                align-items: center;
+            }
+            
+            .chat-title {
+                font-size: 2em;
+                margin-bottom: 30px;
+                text-align: center;
+                background-image: linear-gradient(267deg, #641ff9 27.93%, #02c5f7 99.79%, #c6bafd -31.69%, #b7a2fd -22.78%);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            
+            .chat-container {
+                max-width: 800px;
+                margin: 0 auto;
+                background-color: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                border-radius: 15px;
+                overflow: hidden;
+                box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            }
+            
+            .chat-history {
+                max-height: 500px;
+                overflow-y: auto;
+                padding: 20px;
+            }
+            
+            .chat-history::-webkit-scrollbar {
+                width: 8px;
+            }
+            
+            .chat-history::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+            }
+            
+            .chat-history::-webkit-scrollbar-thumb {
+                background: rgba(2, 197, 247, 0.5);
+                border-radius: 10px;
+            }
+            
+            .chat-history::-webkit-scrollbar-thumb:hover {
+                background: rgba(2, 197, 247, 0.8);
+            }
+            
+            .message {
+                display: flex;
+                margin-bottom: 20px;
+                animation: fadeIn 0.3s ease;
+            }
+            
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            .user-message {
+                justify-content: flex-end;
+            }
+            
+            .ai-message {
+                justify-content: flex-start;
+            }
+            
+            .message-avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                margin: 0 10px;
+            }
+            
+            .user-message .message-avatar {
+                background: linear-gradient(267deg, #641ff9 27.93%, #02c5f7 99.79%, #c6bafd -31.69%, #b7a2fd -22.78%);
+                color: white;
+            }
+            
+            .ai-message .message-avatar {
+                background: rgba(255, 255, 255, 0.2);
+                color: #02c5f7;
+            }
+            
+            .message-content {
+                max-width: 70%;
+                padding: 15px 20px;
+                border-radius: 18px;
+                word-wrap: break-word;
+            }
+            
+            .user-message .message-content {
+                background: linear-gradient(267deg, #641ff9 27.93%, #02c5f7 99.79%, #c6bafd -31.69%, #b7a2fd -22.78%);
+                color: white;
+                border-bottom-right-radius: 5px;
+            }
+            
+            .ai-message .message-content {
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                border-bottom-left-radius: 5px;
+            }
+            
+            .chat-input {
+                flex: 1;
+                padding: 15px 20px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 25px;
+                background-color: rgba(255, 255, 255, 0.9);
+                color: #000000;
+                font-size: 1em;
+                margin-right: 10px;
+                outline: none;
+            }
+            
+            .chat-input:focus {
+                border-color: #02c5f7;
+                box-shadow: 0 0 10px rgba(2, 197, 247, 0.5);
+            }
+            
+            .send-button {
+                padding: 0 25px;
+                border: none;
+                border-radius: 25px;
+                background: linear-gradient(267deg, #641ff9 27.93%, #02c5f7 99.79%, #c6bafd -31.69%, #b7a2fd -22.78%);
+                color: white;
+                font-size: 1em;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            
+            .send-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(2, 197, 247, 0.5);
+            }
+            
+            .send-button:active {
+                transform: translateY(0);
+            }
+            
+            .file-upload-btn {
+                padding: 0 15px;
+                border: none;
+                border-radius: 25px;
+                background: rgba(255, 255, 255, 0.2);
+                color: white;
+                font-size: 1.2em;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .file-upload-btn:hover {
+                background: rgba(2, 197, 247, 0.5);
+            }
+            
+            .uploaded-file {
+                display: inline-block;
+                padding: 8px 15px;
+                margin: 5px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 20px;
+                font-size: 0.9em;
+            }
+            
+            .uploaded-file img {
+                max-width: 200px;
+                max-height: 200px;
+                border-radius: 10px;
+                margin-top: 10px;
+            }
+            
+            .file-preview-area {
+                width: 100%;
+                margin-bottom: 10px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .file-preview-item {
+                position: relative;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .file-preview-item img {
+                max-width: 80px;
+                max-height: 80px;
+                border-radius: 5px;
+            }
+            
+            .file-preview-item .file-info {
+                color: white;
+                font-size: 0.85em;
+                max-width: 150px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            
+            .file-preview-item .remove-file {
+                position: absolute;
+                top: -5px;
+                right: -5px;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: #ff4757;
+                color: white;
+                border: none;
+                cursor: pointer;
+                font-size: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .clear-memory-btn {
+                padding: 0 15px;
+                border: none;
+                border-radius: 25px;
+                background: rgba(255, 71, 87, 0.3);
+                color: white;
+                font-size: 1.2em;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .clear-memory-btn:hover {
+                background: rgba(255, 71, 87, 0.6);
+            }
+            
+            .chat-input-area {
+                display: flex;
+                flex-wrap: wrap;
+                padding: 20px;
+                background: rgba(255, 255, 255, 0.05);
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+        </style>
+
+        <script>
+            const API_URL = 'https://api.deepseek.com/chat/completions';
+            const DEFAULT_API_KEY = 'sk-e6d584345c6547559335921713d7a435';
+            const STORAGE_KEY = 'qboai_chat_history';
+            const MESSAGES_KEY = 'qboai_messages';
+            
+            const chatHistory = document.getElementById('chatHistory');
+            const userInput = document.getElementById('userInput');
+            const sendButton = document.getElementById('sendButton');
+            const fileInput = document.getElementById('fileInput');
+            const filePreviewArea = document.getElementById('filePreviewArea');
+            const clearMemoryBtn = document.getElementById('clearMemoryBtn');
+            
+            let uploadedFiles = [];
+            let messages = [];
+            
+            function initMessages() {
+                const savedMessages = localStorage.getItem(MESSAGES_KEY);
+                if (savedMessages) {
+                    messages = JSON.parse(savedMessages);
+                } else {
+                    messages = [
+                        {"role": "system", "content": "You are a helpful assistant named QBoAI. You can analyze images and files that users upload. Be helpful and friendly."}
+                    ];
+                }
+            }
+            
+            function saveMessages() {
+                localStorage.setItem(MESSAGES_KEY, JSON.stringify(messages));
+            }
+            
+            function loadChatHistory() {
+                const savedHistory = localStorage.getItem(STORAGE_KEY);
+                if (savedHistory) {
+                    chatHistory.innerHTML = savedHistory;
+                    chatHistory.scrollTop = chatHistory.scrollHeight;
+                }
+            }
+            
+            function saveChatHistory() {
+                localStorage.setItem(STORAGE_KEY, chatHistory.innerHTML);
+            }
+            
+            function clearAllMemory() {
+                if (confirm('确定要清除所有聊天记忆吗？')) {
+                    localStorage.removeItem(STORAGE_KEY);
+                    localStorage.removeItem(MESSAGES_KEY);
+                    chatHistory.innerHTML = `
+                        <div class="message ai-message">
+                            <div class="message-avatar">Q</div>
+                            <div class="message-content">
+                                <p>你好！我是QBoAI，有什么我可以帮助你的吗？</p>
+                            </div>
+                        </div>
+                    `;
+                    initMessages();
+                    addMessage('记忆已清除，让我们重新开始吧！', 'ai');
+                }
+            }
+            
+            async function readFile(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    
+                    if (file.type.startsWith('image/')) {
+                        reader.onload = () => {
+                            resolve({
+                                type: 'image',
+                                name: file.name,
+                                data: reader.result,
+                                base64: reader.result.split(',')[1]
+                            });
+                        };
+                        reader.readAsDataURL(file);
+                    } else if (file.type === 'text/plain' || file.name.endsWith('.txt')) {
+                        reader.onload = () => {
+                            resolve({
+                                type: 'text',
+                                name: file.name,
+                                content: reader.result
+                            });
+                        };
+                        reader.readAsText(file);
+                    } else {
+                        resolve({
+                            type: 'file',
+                            name: file.name,
+                            size: file.size,
+                            mimeType: file.type
+                        });
+                    }
+                    
+                    reader.onerror = reject;
+                });
+            }
+            
+            function addFilePreview(fileData, index) {
+                const previewItem = document.createElement('div');
+                previewItem.className = 'file-preview-item';
+                previewItem.dataset.index = index;
+                
+                if (fileData.type === 'image') {
+                    previewItem.innerHTML = `
+                        <img src="${fileData.data}" alt="${fileData.name}">
+                        <div class="file-info">${fileData.name}</div>
+                        <button class="remove-file" onclick="removeFile(${index})">×</button>
+                    `;
+                } else {
+                    previewItem.innerHTML = `
+                        <i class="fa fa-file" style="color: white; font-size: 2em;"></i>
+                        <div class="file-info">${fileData.name}</div>
+                        <button class="remove-file" onclick="removeFile(${index})">×</button>
+                    `;
+                }
+                
+                filePreviewArea.appendChild(previewItem);
+            }
+            
+            function removeFile(index) {
+                uploadedFiles = uploadedFiles.filter((_, i) => i !== index);
+                renderFilePreviews();
+            }
+            
+            function renderFilePreviews() {
+                filePreviewArea.innerHTML = '';
+                uploadedFiles.forEach((file, index) => {
+                    addFilePreview(file, index);
+                });
+            }
+            
+            function markdownToHtml(markdown) {
+                // 转换标题
+                markdown = markdown.replace(/^###\s+(.*$)/gim, '<h3 class="markdown-h3">$1</h3>');
+                markdown = markdown.replace(/^##\s+(.*$)/gim, '<h2 class="markdown-h2">$1</h2>');
+                markdown = markdown.replace(/^#\s+(.*$)/gim, '<h1 class="markdown-h1">$1</h1>');
+                
+                // 转换粗体
+                markdown = markdown.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>');
+                
+                // 转换列表
+                markdown = markdown.replace(/^\s*\d+\.\s+(.*$)/gim, '<li class="markdown-list-item">$1</li>');
+                markdown = markdown.replace(/(<li class="markdown-list-item">[\s\S]*?<\/li>)/gim, '<ul class="markdown-list">$1</ul>');
+                
+                // 转换无序列表
+                markdown = markdown.replace(/^\s*-\s+(.*$)/gim, '<li class="markdown-list-item">$1</li>');
+                
+                // 转换分割线
+                markdown = markdown.replace(/^---$/gim, '<hr class="markdown-hr">');
+                
+                // 转换段落
+                markdown = markdown.replace(/^(?!<[h1-6ulli])([^\n]+)(?<!<\/[h1-6ulli])$/gim, '<p class="markdown-p">$1</p>');
+                
+                // 处理嵌套列表
+                markdown = markdown.replace(/<\/ul>\s*<ul class="markdown-list">/gim, '');
+                
+                return markdown;
+            }
+            
+            async function handleFileUpload(event) {
+                const files = event.target.files;
+                
+                for (const file of files) {
+                    try {
+                        const fileData = await readFile(file);
+                        uploadedFiles.push(fileData);
+                    } catch (error) {
+                        console.error('读取文件失败:', error);
+                    }
+                }
+                
+                renderFilePreviews();
+                fileInput.value = '';
+            }
+            
+            function buildMessageContent(text) {
+                if (uploadedFiles.length === 0) {
+                    return text;
+                }
+                
+                let content = [];
+                
+                uploadedFiles.forEach(file => {
+                    if (file.type === 'image') {
+                        content.push({
+                            type: 'image_url',
+                            image_url: {
+                                url: file.data
+                            }
+                        });
+                    } else if (file.type === 'text') {
+                        content.push({
+                            type: 'text',
+                            text: `[文件: ${file.name}]\n${file.content}`
+                        });
+                    } else {
+                        content.push({
+                            type: 'text',
+                            text: `[附件: ${file.name} (${file.mimeType || '未知类型'}, ${(file.size / 1024).toFixed(2)}KB)]`
+                        });
+                    }
+                });
+                
+                if (text) {
+                    content.push({
+                        type: 'text',
+                        text: text
+                    });
+                }
+                
+                return content.length === 1 && content[0].type === 'text' ? content[0].text : content;
+            }
+            
+            function addMessage(text, sender, files = []) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}-message`;
+                
+                const avatarDiv = document.createElement('div');
+                avatarDiv.className = 'message-avatar';
+                avatarDiv.textContent = sender === 'user' ? 'U' : 'Q';
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                
+                if (files.length > 0) {
+                    files.forEach(file => {
+                        if (file.type === 'image') {
+                            const img = document.createElement('img');
+                            img.src = file.data;
+                            img.style.maxWidth = '200px';
+                            img.style.borderRadius = '10px';
+                            img.style.marginBottom = '10px';
+                            contentDiv.appendChild(img);
+                        } else {
+                            const fileInfo = document.createElement('div');
+                            fileInfo.className = 'uploaded-file';
+                            fileInfo.innerHTML = `<i class="fa fa-file"></i> ${file.name}`;
+                            contentDiv.appendChild(fileInfo);
+                        }
+                    });
+                }
+                
+                if (sender === 'ai') {
+                    const htmlContent = markdownToHtml(text);
+                    contentDiv.innerHTML += htmlContent;
+                } else {
+                    const messageText = document.createElement('p');
+                    messageText.textContent = text;
+                    contentDiv.appendChild(messageText);
+                }
+                
+                messageDiv.appendChild(avatarDiv);
+                messageDiv.appendChild(contentDiv);
+                
+                chatHistory.appendChild(messageDiv);
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+                
+                saveChatHistory();
+                
+                return messageDiv;
+            }
+            
+            async function sendMessage() {
+                const message = userInput.value.trim();
+                
+                if (message === '' && uploadedFiles.length === 0) return;
+                
+                const currentFiles = [...uploadedFiles];
+                
+                addMessage(message || '(发送了文件)', 'user', currentFiles);
+                
+                const messageContent = buildMessageContent(message);
+                
+                if (Array.isArray(messageContent)) {
+                    messages.push({
+                        "role": "user",
+                        "content": messageContent
+                    });
+                } else {
+                    messages.push({
+                        "role": "user",
+                        "content": messageContent
+                    });
+                }
+                
+                saveMessages();
+                
+                userInput.value = '';
+                uploadedFiles = [];
+                renderFilePreviews();
+                
+                const loadingMessage = addMessage('正在思考...', 'ai');
+                
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${DEFAULT_API_KEY}`
+                        },
+                        body: JSON.stringify({
+                            "model": "deepseek-chat",
+                            "messages": messages,
+                            "stream": false
+                        })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API请求失败: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    const aiResponse = data.choices[0].message.content;
+
+                    loadingMessage.remove();
+                    
+                    addMessage(aiResponse, 'ai');
+                    
+                    messages.push({"role": "assistant", "content": aiResponse});
+                    saveMessages();
+
+                } catch (error) {
+                    loadingMessage.remove();
+                    addMessage('抱歉，发生了错误: ' + error.message, 'ai');
+                    console.error('Error:', error);
+                }
+            }
+            
+            sendButton.addEventListener('click', sendMessage);
+            
+            userInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+            
+            fileInput.addEventListener('change', handleFileUpload);
+            
+            clearMemoryBtn.addEventListener('click', clearAllMemory);
+            
+            initMessages();
+            loadChatHistory();
+        </script>
+
+    </body>
+</html>
